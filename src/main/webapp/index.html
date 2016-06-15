@@ -1,0 +1,45 @@
+<html>
+    <head>
+
+    <meta charset="utf-8">
+    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+    <style>
+    </style>
+    </head>
+
+    <body>
+
+      <h1>검색할 식당을 입력해 주세요</h1>
+
+      <input type="text" class="queryText"/>
+      <input type="button" value="검색" class="querySubmit"/>
+      
+      <p class="result"></p>
+     
+    <script>
+      $(function() {
+         $(".querySubmit").on("click", function(){
+
+          var query = $(".queryText").val();
+          console.log(query);
+
+          var data = {};
+          data.query = query;
+
+              $.ajax({
+                "url": "http://localhost:8383/api/searchRestaurant",
+                "data": data,
+                "type" : "POST"
+              }).done(function(result){
+                 console.log(result);
+                 $(".result").text(result);
+              }).fail(function(status){
+                 console.log(status);
+              });
+
+         });
+      });
+
+    </script>
+    </body>
+  </html>
